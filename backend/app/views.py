@@ -19,3 +19,6 @@ class OrderAPI(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, format=None):
+        Order.objects.filter(name=request.data).delete()
