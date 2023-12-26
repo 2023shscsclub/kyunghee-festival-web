@@ -9,7 +9,6 @@ const router = createBrowserRouter([
     {
         path: "/",
         element: <App/>,
-        basename: "/kyunghee-festival-web",
         children: [
             {
                 path: "/",
@@ -20,8 +19,9 @@ const router = createBrowserRouter([
                 element: <Order/>
             }
         ]
-    }
-]);
+    }], {
+        basename: "/kyunghee-festival-web",
+});
 
 function App() {
     return (
