@@ -127,7 +127,7 @@ export default function Order() {
                         </div>
                     </div>
                     <div>
-                        <button className={"w-40 h-12 bg-orange-400 rounded-md text-white font-bold text-2xl m-3"}
+                        <button className={"w-40 h-12 bg-orange-400 rounded-md text-black font-bold text-2xl m-3"}
                                 onClick={order}>주문하기
                         </button>
                     </div>

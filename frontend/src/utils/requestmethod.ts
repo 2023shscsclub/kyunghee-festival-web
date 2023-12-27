@@ -86,8 +86,24 @@ export function getTiktaktoeCurrent(): Promise<any> {
             if (res.status === 200) {
                 return resolve(res.json());
             } else {
-                return resolve({winner: null});
+                return resolve({winner: null, turn: null, nickname: "nothing"});
             }
         })
+    })
+}
+
+export function putTiktaktoe(body: string){
+    fetch(backend_root + "tiktaktoe/", {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: body
+    }).then(res => {
+        if (res.status === 200) {
+            window.location.reload();
+        } else {
+            alert("잘못된 코드입니다");
+        }
     })
 }

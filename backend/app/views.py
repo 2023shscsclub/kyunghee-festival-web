@@ -70,7 +70,9 @@ class TikTakToeAPI(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request, format=None):
-        tiktaktoe = TikTakToe.objects.get(code=request.data["code"])
+        tiktaktoe = TikTakToe.objects.get(code=request.data["code"], now_playing=True)
+        if not tiktaktoe:
+            return Response(status=status.HTTP_404_NOT_FOUND)
         serializers = TikTakToeSerializer(tiktaktoe, data=request.data, partial=True)
         if serializers.is_valid():
             serializers.save()

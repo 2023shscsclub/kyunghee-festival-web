@@ -1,24 +1,25 @@
 import React, {Fragment, useEffect, useState} from "react";
-import {getTiktaktoeCurrent, getTiktaktoePast} from "../utils/requestmethod";
+import {getTiktaktoeCurrent, getTiktaktoePast, putTiktaktoe} from "../utils/requestmethod";
 
 export default function TikTakToe() {
     const [currentData, setCurrentData] = useState(
-        {board: [[], [], []], nickname: "", winner: "", turn: ""})
+        {board: [[], [], []], nickname: "", winner: "", turn: null})
     const [pastDatas, setPastDatas] = useState(
         [{code: 0, board: [[], [], []], nickname: "", winner: "", turn: ""}])
     const [checkTimer, setCheckTimer] = useState(false);
+    const [viewMode, setViewMode] = useState("nothing")
+    const [newGameInput, setNewGameInput] = useState({code: 0, nickname: ""})
 
     let timeout: NodeJS.Timeout;
 
     useEffect(() => {
         getTiktaktoePast().then((response) => {
             setPastDatas(response)
-            console.log(response)
         })
         getCurrentData()
     }, []);
     useEffect(() => {
-        if ((currentData.winner === "O") || (currentData.winner === "X") || (currentData.winner === "Draw") || (currentData.winner === null)) {
+        if ((currentData.winner === "O") || (currentData.winner === "X") || (currentData.winner === "Draw") || (currentData.turn === null)) {
             clearTimeout(timeout);
             getTiktaktoePast().then((response) => {
                 setPastDatas(response)
@@ -31,9 +32,41 @@ export default function TikTakToe() {
 
     function getCurrentData() {
         getTiktaktoeCurrent().then((response) => {
-            setCurrentData(response)
+            console.log(response);
+            judgeViewMode(response);
+            setCurrentData(response);
             setCheckTimer(!checkTimer);
         })
+    }
+
+    function judgeViewMode(data: {board: string[][], nickname: string, winner: string | null, turn: string | null}) {
+        if (data.turn === null) {
+            setViewMode("nothing")
+        } else {
+            if (data.nickname === null) {
+                setViewMode("new")
+            } else {
+                setViewMode("doing")
+            }
+        }
+    }
+
+    function validateInput() {
+        if (!(/[0-9]{6}/.test(newGameInput.code.toString()))) {
+            alert("코드는 숫자 6자리입니다.")
+            return false
+        }
+        if (!(/[가-힣a-zA-Z0-9]{2,}/.test(newGameInput.nickname))) {
+            alert("닉네임은 영문/한글/숫자 2자 이상으로 이루어져야 합니다.")
+            return false
+        }
+    }
+
+    function startNewGame() {
+        if (validateInput()) {
+            return
+        }
+        putTiktaktoe(JSON.stringify(newGameInput))
     }
 
     return (
@@ -43,8 +76,23 @@ export default function TikTakToe() {
             </div>
             <div className={"text-white"}>
                 <h1 className={"text-green-400 text-2xl font-bold text-center mb-3"}>현재 진행중인 경기</h1>
-                {currentData.winner === null ? <h1 className={"text-lg font-bold mx-5 my-2"}>현재 진행중인 경기가 없습니다.</h1> :
-                    <TikTakToeView data={currentData}/>}
+                {viewMode === "new" &&
+                    <div className={"flex flex-col items-center"}>
+                        <h1>코드와 닉네임을 입력해주세요</h1>
+                        <input className={"w-68 h-10 bg-white rounded-xl p-3 mt-5 text-black"} type={"number"} placeholder={"코드"}
+                               onKeyUp={(e) => {
+                                      setNewGameInput({...newGameInput, code: parseInt((e.target as HTMLInputElement).value)})
+                               }}/>
+                        <input className={"w-68 h-10 bg-white rounded-xl p-3 mt-5 text-black"} type={"text"} placeholder={"닉네임"}
+                               onKeyUp={(e) => {
+                                        setNewGameInput({...newGameInput, nickname: (e.target as HTMLInputElement).value})
+                               }}/>
+                        <button className={"w-68 h-10 bg-orange-400 rounded-xl px-3 mt-5 text-black font-bold text-xl"} onClick={startNewGame}>
+                            <h1>새로운 게임 시작하기</h1>
+                        </button>
+                    </div>}
+                {viewMode === "nothing" && <h1 className={"text-lg font-bold mx-5 my-2"}>현재 진행중인 경기가 없습니다.</h1>}
+                {viewMode === "doing" && <TikTakToeView data={currentData}/>}
             </div>
             <div className={"text-black"}>
                 <h1 className={"text-green-400 text-2xl font-bold text-center mt-3 mb-3"}>지난 경기</h1>
