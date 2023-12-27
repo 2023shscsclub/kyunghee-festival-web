@@ -6,6 +6,7 @@ class Order(models.Model):
     phone = models.CharField(max_length=100, unique=True)
     drink = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
+    complete = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name + "" + self.drink
@@ -21,6 +22,6 @@ class TikTakToe(models.Model):
 
     def __str__(self):
         if self.nickname is None:
-            return self.code
+            return str(self.code)
         else:
-            return self.code + " " + self.nickname
+            return str(self.code) + " " + self.nickname
