@@ -4,6 +4,7 @@ import './App.css';
 import HeadBar from "./components/headbar";
 import Order from "./pages/Order";
 import Home from "./pages/Home";
+import TikTakToe from "./pages/TikTakToe";
 
 const router = createBrowserRouter([
     {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
             {
                 path: "/order",
                 element: <Order/>
+            },
+            {
+                path: "/tiktaktoe",
+                element: <TikTakToe/>
             }
         ]
     }], {
