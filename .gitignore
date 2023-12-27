@@ -130,3 +130,7 @@ dist
 .pnp.*
 /backend/db.sqlite3
 /backend/app/migrations/
+
+
+/frontend/build/
+/.idea/

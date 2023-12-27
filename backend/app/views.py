@@ -47,9 +47,16 @@ class TikTakToeAPI(APIView):
     def get(self, request, format=None):
         match request.GET["data"]:
             case "all":
-                tiktaktoes = TikTakToe.objects.all()
+                tiktaktoes = TikTakToe.objects.filter(now_playing=False)
                 serializer = TikTakToeSerializer(tiktaktoes, many=True)
                 return Response(serializer.data, status=status.HTTP_200_OK)
+            case "current":
+                try:
+                    tiktaktoe = TikTakToe.objects.get(now_playing=True)
+                    serializer = TikTakToeCurrentSerializer(tiktaktoe)
+                    return Response(serializer.data, status=status.HTTP_200_OK)
+                except TikTakToe.DoesNotExist:
+                    return Response(status=status.HTTP_404_NOT_FOUND)
             case "only":
                 tiktaktoes = TikTakToe.objects.filter(code=request.GET["code"])
                 serializer = TikTakToeSerializer(tiktaktoes, many=True)
@@ -73,5 +80,6 @@ class TikTakToeAPI(APIView):
     def delete(self, request, format=None):
         tiktaktoe = TikTakToe.objects.get(code=request.data["code"])
         tiktaktoe.current_playing = False
+        tiktaktoe.turn = None
         tiktaktoe.save()
         return Response(status=status.HTTP_200_OK)

@@ -13,3 +13,9 @@ class TikTakToeSerializer(serializers.ModelSerializer):
     class Meta:
         model = TikTakToe
         fields = '__all__'
+
+
+class TikTakToeCurrentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TikTakToe
+        fields = ['board', 'nickname', 'winner', 'turn']

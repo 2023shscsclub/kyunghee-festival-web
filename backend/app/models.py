@@ -17,6 +17,7 @@ class TikTakToe(models.Model):
     board = models.JSONField(default=list)
     nickname = models.CharField(max_length=100, null=True)
     winner = models.CharField(max_length=100, null=True)
+    turn = models.CharField(max_length=100, null=True)
     now_playing = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
 

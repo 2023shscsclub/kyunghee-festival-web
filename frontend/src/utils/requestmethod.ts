@@ -58,7 +58,7 @@ export function postOrder(body: string, phone: string) {
     })
 }
 
-export function getTiktaktoe(): Promise<any> {
+export function getTiktaktoePast(): Promise<any> {
     return new Promise((resolve, _) => {
         fetch(backend_root + "tiktaktoe/?data=all", {
             method: 'GET',
@@ -70,6 +70,23 @@ export function getTiktaktoe(): Promise<any> {
                 return resolve(res.json());
             } else {
                 alert("서버에 오류가 발생하였습니다.");
+            }
+        })
+    })
+}
+
+export function getTiktaktoeCurrent(): Promise<any> {
+    return new Promise((resolve, _) => {
+        fetch(backend_root + "tiktaktoe/?data=current", {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }).then(res => {
+            if (res.status === 200) {
+                return resolve(res.json());
+            } else {
+                return resolve({winner: null});
             }
         })
     })

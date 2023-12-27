@@ -79,7 +79,7 @@ export default function Order() {
                     {peopleLeft !== -1 ?
                         <div>
                             <h1 className={"text-white text-center w-full text-2xl font-bold"}>{peopleLeft + 1}번째 음료로 준비중입니다</h1>
-                            <h1 className={"text-white"}>대기시간: 약 {peopleLeft + 1}분</h1>
+                            <h1 className={"text-white mt-3 w-full text-xl font-bold text-center"}>대기시간: 약 {peopleLeft + 1}분</h1>
                         </div> :
                         <div>
                             <h1 className={"text-white text-center w-full text-2xl font-bold"}>음료가 준비되었습니다</h1>

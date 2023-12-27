@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Footer() {
     return (
-        <div className="w-full h-28 bg-main">
+        <div className="w-full h-28 bg-main pt-5">
             <div className="text-gray-400 text-center font-bold">
                 <h1>서울고등학교 컴퓨터 과학부 © 2023</h1>
             </div>
