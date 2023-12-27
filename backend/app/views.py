@@ -11,7 +11,7 @@ class OrderAPI(APIView):
     def get(self, request, format=None):
         match request.GET["data"]:
             case "all":
-                orders = Order.objects.all(complete=False)
+                orders = Order.objects.filter(complete=False)
                 serializer = OrderSerializer(orders, many=True)
                 return Response(serializer.data, status=status.HTTP_200_OK)
             case "only":
