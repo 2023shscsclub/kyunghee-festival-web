@@ -93,7 +93,7 @@ export default function Order() {
                 </div> :
                 <div className={"w-full bg-main z-10"}>
                     <div className={"w-full h-52 overflow-y-hidden"}>
-                        <img src={"./kyunghee-festival-web/order_black.png"} alt={"음료 주문"} className={"w-full"}/>
+                        <img src={"./kyunghee-festival-web/order_black.jpeg"} alt={"음료 주문"} className={"w-full"}/>
                     </div>
                     <div>
                         <div>
