@@ -39,7 +39,7 @@ class OrderAPI(APIView):
     def delete(self, request, format=None):
         order = Order.objects.filter(phone=request.data["phone"])
         order.complete = True
-        order.save()
+        order.update()
         return Response(status=status.HTTP_200_OK)
 
 
