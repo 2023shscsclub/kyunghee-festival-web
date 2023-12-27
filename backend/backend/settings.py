@@ -47,6 +47,7 @@ CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
     'https://2023shscsclub.github.io',
     'https://mbp16.ez0.us',
+    'http://192.168.0.22:3000'
 ]
 CORS_ALLOW_CREDENTIALS = True
 
@@ -135,4 +136,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "assests")
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-CSRF_TRUSTED_ORIGINS = ['https://mbp16.ez0.us', 'https://2023shscsclub.github.io', 'http://localhost:3000']
+CSRF_TRUSTED_ORIGINS = ['https://mbp16.ez0.us', 'https://2023shscsclub.github.io', 'http://localhost:3000',
+                        'http://192.168.0.22:3000']

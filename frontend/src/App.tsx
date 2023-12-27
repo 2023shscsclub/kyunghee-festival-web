@@ -5,6 +5,7 @@ import HeadBar from "./components/headbar";
 import Order from "./pages/Order";
 import Home from "./pages/Home";
 import TikTakToe from "./pages/TikTakToe";
+import Footer from "./components/Footer";
 
 const router = createBrowserRouter([
     {
@@ -33,6 +34,7 @@ function App() {
         <div className="w-full h-full bg-main" id={"App"}>
             <HeadBar/>
             <Outlet/>
+            <Footer/>
             <ScrollRestoration/>
         </div>
     );

@@ -7,6 +7,7 @@ module.exports = {
     extend: {
       colors: {
         'main': '#0f223c',
+        'point': '#0e1f36',
       },
     },
   },

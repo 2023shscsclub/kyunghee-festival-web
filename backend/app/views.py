@@ -1,3 +1,4 @@
+from django.forms import model_to_dict
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -14,9 +15,19 @@ class OrderAPI(APIView):
                 serializer = OrderSerializer(orders, many=True)
                 return Response(serializer.data, status=status.HTTP_200_OK)
             case "only":
-                orders = Order.objects.filter(phone=request.GET["phone"])
-                serializer = OrderSerializer(orders, many=True)
+                orders = Order.objects.get(phone=request.GET["phone"])
+                serializer = OrderSerializer(orders)
                 return Response(serializer.data, status=status.HTTP_200_OK)
+            case "people":
+                if Order.objects.filter(complete=True, phone=request.GET["phone"]).exists():
+                    return Response(-1, status=status.HTTP_200_OK)
+                orders = Order.objects.filter(complete=False)
+                count = 0
+                for order in orders:
+                    if order.phone == request.GET["phone"]:
+                        break
+                    count += 1
+                return Response(count, status=status.HTTP_200_OK)
 
     def post(self, request, format=None):
         serializer = OrderSerializer(data=request.data)
@@ -42,7 +53,6 @@ class TikTakToeAPI(APIView):
             case "only":
                 tiktaktoes = TikTakToe.objects.filter(code=request.GET["code"])
                 serializer = TikTakToeSerializer(tiktaktoes, many=True)
-                print(serializer.data)
                 return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, format=None):
