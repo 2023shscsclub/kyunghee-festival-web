@@ -144,6 +144,12 @@ function TikTakToeView(props: {
         }
     }
 
+    function turnTable(board: string[][]) {
+        return [[board[3], board[6], board[9]], 
+                [board[2], board[5], board[8]], 
+                 [board[1], board[4], board[7]]
+    }
+
     return (
         <div className={"w-full"}>
             <h1 className={"text-lg font-bold mx-5 my-2"}>닉네임: {props.data.nickname}</h1>
@@ -151,7 +157,7 @@ function TikTakToeView(props: {
             <h1 className={"text-lg font-bold mx-5 my-2"}>승자: {getWinner(props.data.winner)}</h1>
             <table className={"w-60 h-60 b-4 bg-white table-fixed mx-5 my-2"}>
                 <tbody>
-                {props.data.board.map((row) => {
+                {turnTable(props.data.board).map((row) => {
                     return (
                         <tr>
                             {row.map((col) => {
