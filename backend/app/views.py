@@ -81,7 +81,7 @@ class TikTakToeAPI(APIView):
 
     def delete(self, request, format=None):
         tiktaktoe = TikTakToe.objects.get(code=request.data["code"])
-        tiktaktoe.current_playing = False
+        tiktaktoe.now_playing = False
         tiktaktoe.turn = None
         tiktaktoe.save()
         return Response(status=status.HTTP_200_OK)
