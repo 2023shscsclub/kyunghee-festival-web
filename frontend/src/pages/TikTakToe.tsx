@@ -97,7 +97,7 @@ export default function TikTakToe() {
             </div>
             <div className={"text-black"}>
                 <h1 className={"text-green-400 text-2xl font-bold text-center mt-3 mb-3"}>지난 경기</h1>
-                <div className={"flex-col-reverse"}>
+                <div className={"flex flex-col-reverse"}>
                 {pastDatas.map((data) => {
                     return (
                         <div>
