@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function Home() {
-    return
+    return (
         <div className={"w-full relative z-10"}>
             <div className={"w-full bg-main flex flex-col justify-center items-center text-white"}>
                 <div className={"w-full flex flex-col items-center bg-black"}>
