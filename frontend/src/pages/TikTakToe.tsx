@@ -60,10 +60,11 @@ export default function TikTakToe() {
             alert("닉네임은 영문/한글/숫자 2자 이상으로 이루어져야 합니다.")
             return false
         }
+        return true
     }
 
     function startNewGame() {
-        if (validateInput()) {
+        if (!validateInput()) {
             return
         }
         putTiktaktoe(JSON.stringify(newGameInput))
@@ -96,6 +97,7 @@ export default function TikTakToe() {
             </div>
             <div className={"text-black"}>
                 <h1 className={"text-green-400 text-2xl font-bold text-center mt-3 mb-3"}>지난 경기</h1>
+                <div className={"flex-col-reverse"}>
                 {pastDatas.map((data) => {
                     return (
                         <div>
@@ -111,6 +113,7 @@ export default function TikTakToe() {
                         </div>
                     )
                 })}
+                </div>
             </div>
         </div>
     );
